@@ -15,7 +15,7 @@ export default function Page() {
     }
 
     getPokemonAPIData();
-  });
+  }, [page]);
   return (
     <main>
       <h1>Pokemon!</h1>
