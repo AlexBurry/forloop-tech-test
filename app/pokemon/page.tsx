@@ -3,6 +3,7 @@
 import { getPokemonListData, getPokemonData } from "@/app/lib/data";
 import { PokemonList, Pokemon } from "@/app/lib/defintions";
 import Link from "next/link";
+import Image from "next/image";
 import { useState, useEffect } from "react";
 
 function capitiliseName(name: string) {
@@ -65,20 +66,24 @@ function PokemonListView({setSelectedPokemon}: {setSelectedPokemon: (name: strin
 
 function PokemonSingleView({pokemon}: {pokemon: string}) {
     const [data, setData] = useState<Pokemon | null>(null);
-    const [name, setName] = useState<string>("ditto");
-
+    
     useEffect(() => {
-        setName(pokemon)
         async function getPokemonAPIData() {
-            const response: Pokemon = await getPokemonData(name);
+            const response: Pokemon = await getPokemonData(pokemon);
             setData(response)
         }
 
         getPokemonAPIData();
     }, [pokemon]);
+
+    const imgURL = data?.sprites.front_default!;
+    console.log(imgURL)
     return(
         <div>
-            <h2 className="flex justify-center font-bold text-3xl text-blue-600 p-8">{capitiliseName(name)}</h2>
+            <h2 className="flex justify-center font-bold text-3xl text-blue-600">{capitiliseName(pokemon)}</h2>
+            <div className="flex justify-center">
+                <Image src={imgURL} alt={pokemon} width={200} height={200} />
+            </div>
             <div className="flex justify-evenly px-20">
                 <div>
                     <h3 className="flex justify-center text-xl">Type</h3>
