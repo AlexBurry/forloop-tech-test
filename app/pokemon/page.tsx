@@ -42,7 +42,7 @@ function PokemonListView({setSelectedPokemon}: {setSelectedPokemon: (name: strin
             <ul className="grid grid-cols-2 gap-x-8 gap-y-4 font-medium ">
                 {data?.results.map((pokemon) => (
                     <li
-                    className="py-4 px-6 border border-blue-400 bg-blue-200 min-w-96 cursor-pointer"
+                    className="py-4 px-6 border border-blue-400 bg-blue-200 min-w-96 cursor-pointer hover:bg-gray-400"
                     key={pokemon.name}
                     onClick={() => setSelectedPokemon(pokemon.name)}
                     >
@@ -77,16 +77,15 @@ function PokemonSingleView({pokemon}: {pokemon: string}) {
     }, [pokemon]);
 
     const imgURL = data?.sprites.front_default!;
-    console.log(imgURL)
     return(
-        <div>
+        <div className="border-gray-200 bg-gray-100 p-10 mx-10">
             <h2 className="flex justify-center font-bold text-3xl text-blue-600">{capitiliseName(pokemon)}</h2>
             <div className="flex justify-center">
                 <Image src={imgURL} alt={pokemon} width={200} height={200} />
             </div>
             <div className="flex justify-evenly px-20">
-                <div>
-                    <h3 className="flex justify-center text-xl">Type</h3>
+                <div className="py-4 px-6 border border-blue-400 bg-blue-200 min-w-48">
+                    <h3 className="flex justify-center text-xl font-bold underline">Type</h3>
                     <ul>
                         {data?.types.map((type) => 
                             <li key={type.type.name}>
@@ -95,8 +94,8 @@ function PokemonSingleView({pokemon}: {pokemon: string}) {
                         )}
                     </ul>
                 </div>
-                <div>
-                    <h3 className="flex justify-center text-xl">Stats</h3>
+                <div className="py-4 px-6 border border-blue-400 bg-blue-200 min-w-48">
+                    <h3 className="flex justify-center text-xl font-bold underline">Stats</h3>
                     <ul>
                         {data?.stats.map((stat) =>
                             <li key={stat.stat.name}>
@@ -105,8 +104,8 @@ function PokemonSingleView({pokemon}: {pokemon: string}) {
                         )}
                     </ul>
                 </div>
-                <div>
-                    <h3 className="flex justify-center text-xl">Abilities</h3>
+                <div className="py-4 px-6 border border-blue-400 bg-blue-200 min-w-48">
+                    <h3 className="flex justify-center text-xl font-bold underline">Abilities</h3>
                     <ul>
                         {data?.abilities.map((ability) => 
                             <li key={ability.ability.name}>
