@@ -2,9 +2,9 @@
 
 import { getPokemonListData, getPokemonData } from "@/app/lib/data";
 import { PokemonList, Pokemon } from "@/app/lib/defintions";
-import Link from "next/link";
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
+import Loading from "./loading";
 
 function capitiliseName(name: string) {
     return name.charAt(0).toUpperCase() + name.slice(1);
@@ -14,13 +14,17 @@ export default function Page() {
     const [selectedPokemon, setSelectedPokemon] = useState<string>("ditto")
 
     return (
-        <main>
+        <section>
             <div className="flex-col justify-around ">
                 <h1 className="flex justify-center font-bold text-4xl text-blue-600 p-10">Pokemon!</h1>
-                <PokemonListView setSelectedPokemon={setSelectedPokemon} />
-                <PokemonSingleView pokemon={selectedPokemon} />
+                <Suspense fallback={<Loading />}>
+                    <PokemonListView setSelectedPokemon={setSelectedPokemon} />
+                </Suspense>
+                <Suspense fallback={<Loading />}>
+                    <PokemonSingleView pokemon={selectedPokemon} />
+                </Suspense>   
             </div>
-        </main>
+        </section>
     )
 }
 
